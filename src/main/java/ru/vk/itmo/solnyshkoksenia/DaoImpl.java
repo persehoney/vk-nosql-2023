@@ -36,7 +36,7 @@ public class DaoImpl implements Dao<MemorySegment, Entry<MemorySegment>> {
     }
 
     @Override
-    public synchronized Entry<MemorySegment> get(MemorySegment key) {
+    public Entry<MemorySegment> get(MemorySegment key) {
         Iterator<Entry<MemorySegment>> iterator = get(key, null);
         if (!iterator.hasNext()) {
             return null;
