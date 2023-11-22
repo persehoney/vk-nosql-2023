@@ -118,7 +118,7 @@ public class DiskStorage {
         Files.delete(indexTmp);
     }
 
-    public void compact(Iterable<Entry<MemorySegment>> iterable) throws IOException {
+    public void compact() throws IOException {
         final Path tmpFile = storagePath.resolve("tmp");
         final Path indexFile = storagePath.resolve(INDEX_FILE_NAME);
 
@@ -130,12 +130,12 @@ public class DiskStorage {
 
         List<String> existedFiles = Files.readAllLines(indexFile, StandardCharsets.UTF_8);
 
-        if (existedFiles.isEmpty() && !iterable.iterator().hasNext()) {
+        if (existedFiles.isEmpty()) {
             return; // nothing to compact
         }
 
-        Iterator<Entry<MemorySegment>> iterator = range(iterable.iterator(), null, null);
-        Iterator<Entry<MemorySegment>> iterator1 = range(iterable.iterator(), null, null);
+        Iterator<Entry<MemorySegment>> iterator = range(Collections.emptyIterator(), null, null);
+        Iterator<Entry<MemorySegment>> iterator1 = range(Collections.emptyIterator(), null, null);
 
         long dataSize = 0;
         long indexSize = 0;
